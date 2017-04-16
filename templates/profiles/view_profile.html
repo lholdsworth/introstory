@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load embed_video_tags %}
+{% load thumbnail %}
+
+{% block title %}
+	Board Home
+{% endblock %}
+
+{% block content %}
+	<div id="pLeft">
+		<img src="{{ user.profile.image|thumbnail_url:'avatar' }}" id="avatar">
+		{{ user.profile.display_name }}
+		<ul>
+			{% if user.profile.website %}
+			<li><strong>Website</strong>: {{ user.profile.website }}</li>
+			{% endif %}
+			{% if user.profile.phone_number %}
+			<li><strong>Telephone</strong>: <a href="{{ user.profile.phone_number }}">View profile</a></li>
+			{% endif %}
+			{% if user.profile.email %}
+			<li><strong>Email</strong>: <a href="{{ user.email }}">View profile</a></li>
+			{% endif %}
+			{% if user.profile.facebook %}
+			<li><strong>Facebook</strong>: <a href="{{ user.profile.facebook }}">View profile</a></li>
+			{% endif %}
+			{% if user.profile.twitter %}
+			<li><strong>Twitter</strong>: <a href="{{ user.profile.twitter }}">View profile</a></li>
+			{% endif %}
+			{% if user.profile.instagram %}
+			<li><strong>Instagram</strong>: <a href="{{ user.profile.instagram }}">View profile</a></li>
+			{% endif %}
+			{% if user.profile.pinterest %}
+			<li><strong>Pinterest</strong>: <a href="{{ user.profile.pinterest }}">View profile</a></li>
+			{% endif %}
+			<p>recommend: {{ r_count }}</p>
+			<p>indifferent: {{ i_count }}</p>
+			<p>does not recommend: {{ d_count }}</p>
+			<div id="rating" class="{{ rating }}">
+			</div>
+		</ul>
+	</div>
+
+	<div id="pMid">
+		<ul class="tabs">
+			<li><a href="#tab1" class="active">Standard Video</a></li>
+			<li class="fav"><a href="#tab2">360 Video</a></li>
+		</ul>
+
+		<div class="clear"></div>
+
+		<div id="tab1" class="tab active">
+			<h1><div class='embed-container'>{% video user.profile.standard_video %}</div></h1>
+		</div>
+
+		<div id="tab2" class="tab">
+			<h1><div class='embed-container'>{% video user.profile.vr_video %}</div></h1>
+		</div>				
+	</div>
+
+	<div id="pRight">
+		<ul id="trafficlights">
+
+		{% if request.user != user %}
+			
+			{% if recommends %}
+			<li class="recommend">You recommend this</li>			
+			{% else %}
+			<li class="recommend"><a href="#" id="recommend" data-userid="{{ user.id }}"><div class="rate green"></div></a></li>
+			{% endif %}
+
+			{% if is_indifferent %}
+			<li class="indifferent">You are indifferent to this</li>
+			{% else %}
+			<li class="indifferent"><a href="#" id="indifferent" data-userid="{{ user.id }}"><div class="rate orange"></div></a></li>
+			{% endif %}
+
+			{% if does_not_recommend %}
+			<li class="donotrecommend">You do not recommend this</li>
+			{% else %}
+			<li class="donotrecommend"><a href="#" id="donotrecommend" data-userid="{{ user.id }}"><div class="rate red"></div></a></li>
+			{% endif %}
+
+		{% endif %}
+
+		</ul>
+	</div>
+	
+	<div class="clear"></div>
+{% endblock %}
+
+{% block footerscripts %}
+<!-- tabs -->
+<script type="text/javascript">
+	$('.tabs a').click(function(){
+		$('.tab').removeClass('active');
+		$('.tabs a').removeClass('active');
+		var active = $(this).attr('href');
+		$('div' + active).addClass('active');
+		$(this).addClass('active');
+		return false;
+	});	
+</script>
+<script type="text/javascript" src="{% static 'js/trafficlights.js' %}"></script>
+<!-- traffic lights ajax -->
+
+{% endblock %}

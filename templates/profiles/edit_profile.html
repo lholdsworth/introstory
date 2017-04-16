@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+	Edit Profile
+{% endblock %}
+
+{% block content %}
+
+	{% if selecteduser == user %}
+
+		<form method="post" action="." enctype="multipart/form-data">
+			{% csrf_token %}
+			{{ user_form.as_p }}
+			{{ profile_form.as_p }}
+			<input type="submit" value="Update" />
+		</form>
+
+	{% else %}
+
+		<p><strong>Bio:</strong></p>	
+		<p>{{ selecteduser.profile.bio }}</p>
+
+		{% if selecteduser.profile.website %}
+			<p><strong>Website</strong></p>
+			<p><a href="{{ selecteduser.profile.website }}">{{ selecteduser.profile.website }}</a></p>
+		{% endif %}
+
+		{% if selecteduser.profile.dob %}
+			<p><strong>Date of Birth</strong></p>
+			<p>{{ selecteduser.profile.dob }}</p>
+		{% endif %}
+
+	{% endif %}
+
+</div>
+
+
+{% endblock %}
+
+{% block footerscripts %}
+{% endblock %}
