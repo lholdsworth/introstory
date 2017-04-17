@@ -2,4 +2,4 @@
 db.sqlite3
 myvenv
 __pycache__
-local_settings.py
+intro/local_settings.py
