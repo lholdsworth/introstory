@@ -158,3 +158,18 @@ LOGIN_REDIRECT_URL = '/'
 # The page users are directed to if they are not logged in,
 # and are trying to access pages requiring authentication
 LOGIN_URL = '/accounts/login/'
+
+
+import dj_database_url
+DATABASES['default'] = dj_database_url.config(conn_max_age=500)
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+ALLOWED_HOSTS = ['*']
+
+# DEBUG = False
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass
