@@ -10,7 +10,7 @@ import math
 
 # Home page
 def index(request):
-    welcome = "Oi Oi savloy"
+    welcome = "Oi Oi Savloy"
     return render(request, 'home.html', {'welcome':welcome})
 
 
