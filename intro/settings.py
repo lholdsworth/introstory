@@ -24,9 +24,6 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'i)w(3kk4jko+6#4j%9-as2gk@iixt)m_)q)a#fo-k^pc24@apl'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
 ALLOWED_HOSTS = []
 
 
@@ -39,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'storages',
     'easy_thumbnails',
     'registration',
     'embed_video',
@@ -160,16 +158,18 @@ LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/accounts/login/'
 
 
+STATE = 'prod'
+
 import dj_database_url
 DATABASES['default'] = dj_database_url.config(conn_max_age=500)
-
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
 ALLOWED_HOSTS = ['*']
-
 DEBUG = False
 
 try:
     from .local_settings import *
 except ImportError:
     pass
+
+if os.environ.get('STATE') == 'prod':
+    from aws_settings import *
