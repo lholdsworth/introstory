@@ -136,8 +136,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'staticfiles'),
 )
-
-# STATICFILES_DIRS = [STATIC_DIR, ]
 STATIC_URL = '/static/'
 
 
@@ -171,5 +169,27 @@ try:
 except ImportError:
     pass
 
-if os.environ.get('STATE') == 'prod':
-    from aws_settings import *
+# if os.environ.get('STATE') == 'prod':
+#     from aws_settings import *
+
+AWS_STORAGE_BUCKET_NAME = 'intro-story'
+AWS_ACCESS_KEY_ID = 'AKIAIPTAG6WRYSV3FVTQ'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+STATIC_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
+STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+# AWS_ACCESS_KEY_ID = 'AKIAIPTAG6WRYSV3FVTQ'
+# AWS_SECRET_ACCESS_KEY = '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'
+# AWS_STORAGE_BUCKET_NAME = 'intro-story'
+# AWS_AUTO_CREATE_BUCKET = False
+# AWS_QUERYSTRING_AUTH = False
+# AWS_S3_SECURE_URLS = False
+# AWS_S3_CALLING_FORMAT = 'boto.s3.connection.OrdinaryCallingFormat'
+# AWS_S3_HOST = 'us-east-2.amazonaws.com'
+# AWS_S3_CUSTOM_DOMAIN = AWS_STORAGE_BUCKET_NAME
+
+# MEDIA_URL = 'http://%s/' % AWS_STORAGE_BUCKET_NAME
+# STATICFILES_STORAGE = DEFAULT_FILE_STORAGE
+# STATIC_URL = MEDIA_URL
