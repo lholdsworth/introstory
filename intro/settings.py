@@ -144,8 +144,6 @@ LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/accounts/login/'
 
 
-STATE = 'prod'
-
 import dj_database_url
 
 DATABASES['default'] = dj_database_url.config(conn_max_age=500)
@@ -159,6 +157,7 @@ AWS_SECRET_ACCESS_KEY=os.environ.get('AWS_SECRET_KEY', None)
 AWS_STORAGE_BUCKET_NAME = 'intro-story'
 AWS_S3_HOST='s3.us-east-2.amazonaws.com'
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.us-east-2.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_URL_PROTOCOL = "https:"
 
 STATICFILES_LOCATION = 'static'
 STATICFILES_STORAGE = 'custom_storages.StaticStorage'
@@ -167,7 +166,6 @@ STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
 MEDIAFILES_LOCATION = 'media'
 MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
 DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
-
 
 
 try:
