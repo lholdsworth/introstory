@@ -10,8 +10,8 @@ import os
 
 
 AWS_STORAGE_BUCKET_NAME = 'intro-story'
-AWS_ACCESS_KEY_ID = 'AKIAIPTAG6WRYSV3FVTQ'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
 # Tell django-storages that when coming up with the URL for an item in S3 storage, keep
 # it simple - just use this domain plus the path. (If this isn't set, things get complicated).
