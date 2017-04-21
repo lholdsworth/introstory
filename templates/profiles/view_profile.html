@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% load static from staticfiles %}
 {% load embed_video_tags %}
-{% load thumbnail %}
 
 {% block title %}
 	Board Home
@@ -9,7 +8,7 @@
 
 {% block content %}
 	<div id="pLeft">
-		<img src="{{ user.profile.image|thumbnail_url:'avatar' }}" id="avatar">
+		<img src="{{ user.profile.image.crop.75x75 }}" id="avatar">
 		{{ user.profile.display_name }}
 		<ul>
 			{% if user.profile.website %}
