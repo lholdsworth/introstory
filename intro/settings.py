@@ -205,16 +205,3 @@ try:
     from .local_settings import *
 except ImportError:
     pass
-
-
-
-
-
-
-# STATIC_DIR = os.path.join(BASE_DIR, 'static')
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-# STATICFILES_DIRS = (
-#     os.path.join(BASE_DIR, 'staticfiles'),
-# )
-# MEDIA_DIR = os.path.join(BASE_DIR, 'media')
-# MEDIA_ROOT = MEDIA_DIR    
