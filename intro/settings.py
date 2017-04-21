@@ -2,7 +2,6 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -91,6 +90,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'intro.urls'
 
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -189,15 +189,6 @@ AWS_S3_CUSTOM_DOMAIN = 's3.us-east-2.amazonaws.com/%s' % AWS_STORAGE_BUCKET_NAME
 AWS_S3_SECURE_URLS = False
 
 
-# STATIC_DIR = os.path.join(BASE_DIR, 'static')
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-# STATICFILES_DIRS = (
-#     os.path.join(BASE_DIR, 'staticfiles'),
-# )
-# MEDIA_DIR = os.path.join(BASE_DIR, 'media')
-# MEDIA_ROOT = MEDIA_DIR
-
-
 STATICFILES_LOCATION = 'static'
 MEDIAFILES_LOCATION = 'media'
 
@@ -214,3 +205,16 @@ try:
     from .local_settings import *
 except ImportError:
     pass
+
+
+
+
+
+
+# STATIC_DIR = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, 'staticfiles'),
+# )
+# MEDIA_DIR = os.path.join(BASE_DIR, 'media')
+# MEDIA_ROOT = MEDIA_DIR    
