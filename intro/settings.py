@@ -186,8 +186,7 @@ AWS_SECRET_ACCESS_KEY=os.environ.get('AWS_SECRET_KEY', None)
 AWS_STORAGE_BUCKET_NAME = 'intro-story'
 AWS_S3_HOST='s3.us-east-2.amazonaws.com'
 AWS_S3_CUSTOM_DOMAIN = 's3.us-east-2.amazonaws.com/%s' % AWS_STORAGE_BUCKET_NAME
-AWS_S3_SECURE_URLS = False
-
+AWS_S3_URL_PROTOCOL = "https:"
 
 STATICFILES_LOCATION = 'static'
 MEDIAFILES_LOCATION = 'media'
