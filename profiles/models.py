@@ -5,6 +5,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from embed_video.fields import EmbedVideoField
 from versatileimagefield.fields import VersatileImageField
+from django.forms.widgets import TextInput
 
 
 class Profile(models.Model):
@@ -25,7 +26,7 @@ class Profile(models.Model):
 		upload_to='profile_image',
 		blank=True
 	)
-	website = models.CharField(blank=True, max_length=255)
+	website = models.URLField(blank=True, max_length=255)
 	facebook = models.CharField(blank=True, max_length=255)
 	twitter = models.CharField(blank=True, max_length=255)
 	pinterest = models.CharField(blank=True, max_length=255)

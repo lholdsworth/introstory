@@ -39,4 +39,13 @@
 {% endblock %}
 
 {% block footerscripts %}
+<script type="text/javascript">
+	var atype = $('#id_account_type').val()
+	if (atype == "IN") {
+		$("label[for='id_display_name']").html("Display Name");
+	}
+	else if (atype == "CO") {
+		$("label[for='id_display_name']").html("Company/Organisation Name");
+	}
+</script>
 {% endblock %}

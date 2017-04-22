@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.db import transaction
 from django.core.urlresolvers import reverse
 from .models import Profile
-from .forms import UserForm, ProfileForm
+from .forms import UserForm, ProfileForm, Step2Form
 import math
 
 # Home page
@@ -14,7 +14,7 @@ def index(request):
     return render(request, 'home.html', {'welcome':welcome})
 
 
-# view profile
+    # view profile
 def view_profile(request, username):
     user = User.objects.get(username=username)
     userid = user.id
@@ -58,6 +58,55 @@ def view_profile(request, username):
 		})
 
 
+#step2 reg
+@login_required
+def step2(request, userid):
+
+    # check the user we're trying to edit exists
+    try:   
+        user = User.objects.get(id=userid)
+    except User.DoesNotExist:
+        return redirect('profiles:index')    
+
+    # check current user is the user we're trying to edit
+    current_user = request.user
+    if user == current_user:
+        pass
+    else:
+        return redirect('profiles:index')    
+
+    # get profile object that matches user, or create it
+    userprofile = Profile.objects.get_or_create(user=user)[0]
+
+    # create a ProfileForm object and pre-populate fields if values exists
+    step2form = Step2Form({
+        'account_type':userprofile.account_type,
+        'display_name':userprofile.display_name,
+        'image':userprofile.image,
+        }, 
+        instance=request.user.profile)
+
+    # if a form was submitted (i.e. form update sent)
+    if request.method == 'POST':
+        # create Profile object same as above, also getting FILES for image submitted
+        step2form = Step2Form(request.POST, request.FILES, instance=request.user.profile)
+        # check both forms are valid
+        if step2form.is_valid():
+            # save the profile form
+            step2form.save()
+            # get outa here. use correct redirect to avoid user refresh/resubmission issue
+            return HttpResponseRedirect(reverse('profiles:edit_profile',args=(request.user.id,)))
+        else:
+            # if there were errors, WHY?!
+            print(step2form.errors)
+
+    # return the shiznit
+    return render(request, 'profiles/step2.html', {
+        'step2form': step2form,
+        'selecteduser': user,
+    })
+
+
 # edit users profile
 @login_required
 @transaction.atomic
@@ -88,6 +137,7 @@ def edit_profile(request, userid):
     profile_form = ProfileForm({
         'display_name':userprofile.display_name,
         'image':userprofile.image,
+        'account_type':userprofile.account_type,
         'website':userprofile.website,
         'facebook':userprofile.facebook,
         'twitter':userprofile.twitter,

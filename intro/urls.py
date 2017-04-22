@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.urls import reverse
 from django.conf.urls import url, include
 from django.conf.urls.static import static
 from django.contrib import admin
@@ -7,7 +8,7 @@ from profiles import views as profileviews
 
 class MyRegistrationView(RegistrationView):
 	def get_success_url(self,user):
-		return '/profiles/edit/2/'
+		return reverse('profiles:edit_profile', kwargs={'userid':user.id})
 
 urlpatterns = [
 	url(r'^accounts/register/$', MyRegistrationView.as_view(), name='registration_register'),
