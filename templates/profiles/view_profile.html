@@ -8,7 +8,9 @@
 
 {% block content %}
 	<div id="pLeft">
+		{% if user.profile.image %}
 		<img src="{{ user.profile.image.crop.75x75 }}" id="avatar">
+		{% endif %}
 		{{ user.profile.display_name }}
 		<ul>
 			{% if user.profile.website %}
